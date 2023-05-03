@@ -3,6 +3,7 @@ import './App.css';
 import { useState } from "react";
 import PricingPlan from "./PricingPlan.jsx";
 import Loginpanel from './Loginpanel.jsx';
+import UserList from './userList';
 
 import {
   createStyles,
@@ -42,6 +43,7 @@ function App() {
           <Route path="/subscription" element={<PricingPlan />} />
           <Route path="/panelsub" element={<SubComp />} />
           <Route path="/loginpanel" element={<Loginpanel />} />
+          <Route path="/userlist" element={<UserList />} />
           navigate(path);
         </Routes>
       </BrowserRouter>
