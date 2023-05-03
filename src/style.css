@@ -1,231 +1,557 @@
-
 :root {
-    font-family: Inter, Avenir, Helvetica, Arial, sans-serif;
-    font-size: 16px;
-    line-height: 24px;
-    font-weight: 400;
-  
+  font-family: Inter, Avenir, Helvetica, Arial, sans-serif;
+  font-size: 16px;
+  line-height: 24px;
+  font-weight: 400;
+
+  color: black;
+  background-color: #f6f6f6;
+
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-text-size-adjust: 100%;
+}
+
+.container {
+  margin: 0;
+  padding-top: 10vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  text-align: center;
+}
+
+.container_r{
+  display: flex;
+  flex-direction: row;
+  justify-content: left;
+}
+
+.logo {
+  height: 6em;
+  padding: 1.5em;
+  will-change: filter;
+  transition: 0.75s;
+}
+
+.logo.tauri:hover {
+  filter: drop-shadow(0 0 2em #3f51b5);
+}
+
+.row {
+  display: flex;
+  justify-content: center;
+  flex-direction: row;
+}
+
+.column {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+}
+
+.default_padding{
+  padding: 10;
+}
+
+.default_gap {
+  margin: 5px;
+}
+
+.default_bcp{
+
+  background-color: rgb(47, 0, 255);
+
+}
+
+a {
+  font-weight: 300;
+  color: #00c3ff;
+  text-decoration: inherit;
+}
+
+a:hover {
+  color: #8d0000;
+}
+
+
+h1 {
+  font-family: 'Exo 2', sans-serif;
+  font-weight: 300 ;
+  text-align: center;
+}
+
+p{
+  margin : 5px;
+  font-family: 'Exo 2', sans-serif;
+  font-weight: 300 ;
+}
+
+input,
+button {
+  justify-content: center !important;
+  align-items: center !important;
+  text-align: center;
+  border-radius: 10px;
+  border: 1px solid transparent;
+  padding: 0.6em 1.2em;
+  margin-top: 5px;
+  margin-right: 10px;
+  font-size: 1em;
+  font-weight: 500;
+  font-family: inherit;
+  color: #0f0f0f;
+  background-color: #ffffff;
+  transition: background-color 0.85s;
+  box-shadow: 0 2px 2px rgba(0, 0, 0, 0.2);
+
+}
+
+
+button {
+  cursor: pointer;
+}
+
+button:hover {
+  background-color: #3f51b5;
+  color: white;
+}
+
+input,
+button {
+  outline: none;
+}
+
+#box{
+background-color: red;
+color:red;
+}
+#greet-input {
+  margin-right: 5px;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
     color: black;
-    background-color: #f6f6f6;
-  
-    font-synthesis: none;
-    text-rendering: optimizeLegibility;
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
-    -webkit-text-size-adjust: 100%;
+    background-color: #2f2f2f;
   }
-  
-  .container {
-    margin: 0;
-    padding-top: 10vh;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    text-align: center;
-  }
-  
-  .container_r{
-    display: flex;
-    flex-direction: row;
-    justify-content: left;
-  }
-  
-  .logo {
-    height: 6em;
-    padding: 1.5em;
-    will-change: filter;
-    transition: 0.75s;
-  }
-  
-  .logo.tauri:hover {
-    filter: drop-shadow(0 0 2em #3f51b5);
-  }
-  
-  .row {
-    display: flex;
-    justify-content: center;
-    flex-direction: row;
-  }
-  
-  .column {
-    display: flex;
-    justify-content: center;
-    flex-direction: column;
-  }
-  
-  .default_padding{
-    padding: 10;
-  }
-  
-  .default_gap {
-    margin: 5px;
-  }
-  
-  .default_bcp{
-  
-    background-color: rgb(47, 0, 255);
-  
-  }
-  
-  a {
-    font-weight: 300;
-    color: #00c3ff;
-    text-decoration: inherit;
-  }
-  
+
   a:hover {
-    color: #8d0000;
+    color: #24c8db;
   }
-  
-  
-  h1 {
-    font-family: 'Exo 2', sans-serif;
-    font-weight: 300 ;
-    text-align: center;
-  }
-  
-  p{
-    margin : 5px;
-    font-family: 'Exo 2', sans-serif;
-    font-weight: 300 ;
-  }
-  
+
   input,
   button {
-    justify-content: center !important;
-    align-items: center !important;
-    text-align: center;
-    border-radius: 10px;
-    border: 1px solid transparent;
-    padding: 0.6em 1.2em;
-    margin-top: 5px;
-    margin-right: 10px;
-    font-size: 1em;
-    font-weight: 500;
-    font-family: inherit;
-    color: #0f0f0f;
-    background-color: #ffffff;
-    transition: background-color 0.85s;
-    box-shadow: 0 2px 2px rgba(0, 0, 0, 0.2);
+    color: #ffffff;
+    background-color: #0f0f0f98;
+  }
+}
+.check{
+
+  box-shadow: 0 0 0 rgba(0, 0, 0, 0);
+}
+.reg{
+  margin-left: 30px;
+}
+
+/* Subscription Page */
+.price-plan {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  margin:      auto;
+  max-width: 900px;
+}
   
+.plan-card {
+  width: 200px;
+  height: auto;
+  margin: 20px;
+  padding: 30px;
+  color: #000000;
+  background-color: white;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+  border-radius: 10px;
+  text-align: center;
+  transition: all 0.3s ease-in-out;
+}
+
+.plan-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.3);
+}
+
+.plan-card h2 {
+  font-size: 24px;
+  font-weight: bold;
+  margin-bottom: 20px;
+}
+
+.plan-card .price {
+  font-size: 36px;
+  font-weight: bold;
+  margin-bottom: 20px;
+}
+
+.plan-card .features {
+  margin-bottom: 30px;
+  list-style: none;
+  padding: 0;
+  text-align: left;
+}
+
+.plan-card .features li {
+  margin-bottom: 10px;
+}
+
+.plan-card button {
+  display: block;
+  width: 100%;
+  background-color: #f6f6f6;
+  color: black;
+  font-size: 18px;
+  font-weight: bold;
+  padding: 10px 0;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: all 0.3s ease-in-out;
+}
+
+.plan-card button:hover {
+  background-color: #3f51b5;
+  color: white;
+}
+
+/* Loader CSS */
+.lds-spinner {
+  color: official;
+  display: inline-block;
+  position: relative;
+  width: 80px;
+  height: 80px;
+}
+.lds-spinner div {
+  transform-origin: 40px 40px;
+  animation: lds-spinner 1.2s linear infinite;
+}
+.lds-spinner div:after {
+  content: " ";
+  display: block;
+  position: absolute;
+  top: 3px;
+  left: 37px;
+  width: 6px;
+  height: 18px;
+  border-radius: 20%;
+  background: #fff;
+}
+.lds-spinner div:nth-child(1) {
+  transform: rotate(0deg);
+  animation-delay: -1.1s;
+}
+.lds-spinner div:nth-child(2) {
+  transform: rotate(30deg);
+  animation-delay: -1s;
+}
+.lds-spinner div:nth-child(3) {
+  transform: rotate(60deg);
+  animation-delay: -0.9s;
+}
+.lds-spinner div:nth-child(4) {
+  transform: rotate(90deg);
+  animation-delay: -0.8s;
+}
+.lds-spinner div:nth-child(5) {
+  transform: rotate(120deg);
+  animation-delay: -0.7s;
+}
+.lds-spinner div:nth-child(6) {
+  transform: rotate(150deg);
+  animation-delay: -0.6s;
+}
+.lds-spinner div:nth-child(7) {
+  transform: rotate(180deg);
+  animation-delay: -0.5s;
+}
+.lds-spinner div:nth-child(8) {
+  transform: rotate(210deg);
+  animation-delay: -0.4s;
+}
+.lds-spinner div:nth-child(9) {
+  transform: rotate(240deg);
+  animation-delay: -0.3s;
+}
+.lds-spinner div:nth-child(10) {
+  transform: rotate(270deg);
+  animation-delay: -0.2s;
+}
+.lds-spinner div:nth-child(11) {
+  transform: rotate(300deg);
+  animation-delay: -0.1s;
+}
+.lds-spinner div:nth-child(12) {
+  transform: rotate(330deg);
+  animation-delay: 0s;
+}
+@keyframes lds-spinner {
+  0% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+
+/*  */
+
+/*dataset*/
+.Data-set {
+  max-height: 460px;
+  overflow-y: auto;
+  flex-wrap: wrap;
+  gap: 20px;
+  padding: 20px;
+  justify-content: center;
+  align-items: start;
+  margin:auto;
+  max-width: 600px;
+}
+
+
+  
+.Data-card {
+  width: auto;
+  height: 15  0px;
+  margin: 5px;
+  padding: 5px;
+  color: #000000;
+  background-color: white;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+  border-radius: 10px;
+  text-align: center;
+  transition: all 0.3s ease-in-out;
+  
+}
+.Data-card-icons {
+justify-content: space-between;
+display: flex;
+  text-align: right;
+  }
+
+.Data-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.3);
+}
+
+
+.Data-card h2 {
+  text-align: start;
+  font-size: 24px;
+  font-weight: bold;
+  margin-top: 2px;
+  
+  margin-bottom: 2px;
+}
+
+.Data-card .noofcvs {
+  text-align: start;
+  font-size: 18px;
+  margin: 0%;
+  font-weight: bold;
+}
+
+.Data-card .features {
+  list-style: none;
+  padding: 0;
+  text-align: left;
+}
+
+.Data-card .features li {
+  margin-bottom: 2px;
+}
+.Data-card-header{
+  justify-content: space-between;
+}
+
+td{
+  display: flex;
+  justify-content: space-between;
+
+}
+
+.window {
+  justify-content: center; /* center horizontally */
+  align-items: center;
+  height: 500px; /* set the height of the container */
+   /* enable vertical scrolling */
+}
+
+
+.icon-table {
+  display: inline-block;
+  justify-content: right;
+  display:flex;
+  text-align: center;
+  }
+
+.iconbutton{
+border-radius: 30px;
+text-align: right;
+justify-content: right;
+display:flex;
+
+}
+
+.bottom-right-button {
+ 
+  margin: 10px;
+}
+
+/* popup */
+.popup {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 9999;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: -1;
+}
+
+.popup-content {
+  background-color: #f9f1f1;
+  justify-content: center;
+  margin-left: 20px;
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+  border-radius: 10px;
+  padding: 20px;
+  position: relative;
+}
+.remove-btn{
+  margin: 5px;
+}
+.x-btn-del{
+  border: 20px;
+  margin: 20px;
+}
+
+.close-Export {
+  position: absolute;
+  top: 5px;
+  right: 5px;
+  padding: 2px;
+  border: none;
+  background-color: #f6f6f6;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.quit-msg{
+  padding: 25px;
+}
+
+.export-as {
+  display: flex;
+  justify-content: left;
+  font-weight:bolder;
+}
+
+  
+.close-remove {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  border: none;
+  background-color: #f6f6f6;
+  padding: 10px 20px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.remove-as {
+  display: flex;
+  justify-content: left;
+  flex-direction: row;}
+
+  /* CSS for DynamicTable component */
+  .container-table {
+    max-width: 50px;
+    margin: 0 auto;
   }
   
-  
-  button {
-    cursor: pointer;
+  .title {
+    font-size: 24px;
+    margin-bottom: 16px;
   }
   
-  button:hover {
-    background-color: #3f51b5;
-    color: white;
+  .view-table {
+    width: 100%;
+    align-content: center;
+    overflow-y:auto;
+    
+    
+    /* Update: center align the table content */
   }
-  
-  input,
-  button {
-    outline: none;
-  }
-  
-  #box{
-  background-color: red;
-  color:red;
-  }
-  #greet-input {
-    margin-right: 5px;
-  }
-  
-  @media (prefers-color-scheme: dark) {
-    :root {
-      color: black;
-      background-color: #2f2f2f;
-    }
-  
-    a:hover {
-      color: #24c8db;
-    }
-  
-    input,
-    button {
-      color: #ffffff;
-      background-color: #0f0f0f98;
-    }
-  }
-  .check{
-  
-    box-shadow: 0 0 0 rgba(0, 0, 0, 0);
-  }
-  .reg{
-    margin-left: 30px;
-  }
-  
-  /* Subscription Page */
-  .price-plan {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-wrap: wrap;
-    margin:      auto;
-    max-width: 900px;
+
+  .table-div{
+    max-height: 450px;
+    overflow-y:scroll;
+
   }
     
-  .plan-card {
-    width: 200px;
-    height: auto;
-    margin: 20px;
-    padding: 30px;
-    color: #000000;
-    background-color: white;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
-    border-radius: 10px;
-    text-align: center;
-    transition: all 0.3s ease-in-out;
+
+  
+  .table-container{
+    align-content: center;
+    
+    
+    /* margin-left: 275px; */
   }
   
-  .plan-card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.3);
+  th{
+    justify-content: center;
   }
-  
-  .plan-card h2 {
-    font-size: 24px;
+  td {
+    padding: 7px;
+    text-align: center; /* Update: center align the table content */
+    border: 1px solid #ddd;
+  }
+  .th-name{
+    width: 50px;
+  }
+  .sel-btn{
+    width:10px;
+  }
+  .th-id{
+    width: 50px;
+  }
+  .th-age{
+    width: 50px;
+  }
+  .th-city{
+    width: 50px;
+  }  
+  th {
+    background-color: #f8f8f8;
     font-weight: bold;
-    margin-bottom: 20px;
   }
   
-  .plan-card .price {
-    font-size: 36px;
-    font-weight: bold;
-    margin-bottom: 20px;
-  }
-  
-  .plan-card .features {
-    margin-bottom: 30px;
-    list-style: none;
-    padding: 0;
-    text-align: left;
-  }
-  
-  .plan-card .features li {
-    margin-bottom: 10px;
-  }
-  
-  .plan-card button {
-    display: block;
-    width: 100%;
-    background-color: #f6f6f6;
-    color: black;
-    font-size: 18px;
-    font-weight: bold;
-    padding: 10px 0;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: all 0.3s ease-in-out;
-  }
-  
-  .plan-card button:hover {
-    background-color: #3f51b5;
-    color: white;
-  }
 
   /* subcomp*/
 
