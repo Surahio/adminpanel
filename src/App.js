@@ -3,7 +3,8 @@ import './App.css';
 import { useState } from "react";
 import PricingPlan from "./PricingPlan.jsx";
 import Loginpanel from './Loginpanel.jsx';
-import UserList from './userList';
+import UserList from './Userlist';
+import User from './User';
 
 import {
   createStyles,
@@ -44,6 +45,7 @@ function App() {
           <Route path="/panelsub" element={<SubComp />} />
           <Route path="/loginpanel" element={<Loginpanel />} />
           <Route path="/userlist" element={<UserList />} />
+          <Route path="/user/:userId" element={<User />} />
           navigate(path);
         </Routes>
       </BrowserRouter>
