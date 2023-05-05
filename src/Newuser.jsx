@@ -1,11 +1,12 @@
 import "./Newuser.css";
-import {Sidebar} from "./Sidebar.jsx";
+import Sidebar from "./Sidebar.jsx";
 import "./home.css";
 
 export default function NewUser() {
   return (
     <>
     <div className="container-new">
+        <Sidebar />
           <div className="others">
           <div className="newUser">
               <h1 className="newUserTitle">New User</h1>

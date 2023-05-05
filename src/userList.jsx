@@ -5,7 +5,7 @@ import { DeleteOutline } from "@material-ui/icons";
 import { userRows } from "./dummyData.js";
 import { Link } from "react-router-dom";
 import { useState } from "react";
-import { Sidebar } from "./Sidebar.jsx";
+import  Sidebar  from "./Sidebar.jsx";
 import "./home.css";
 
 export default function Userlist() {
@@ -59,6 +59,7 @@ const columns = [
 
   return (
     <div className="container-new">
+      <Sidebar />
       <div className="others">
       <div className='userList'>
       <DataGrid

@@ -9,13 +9,14 @@ import {
   Publish,
 } from "@material-ui/icons";
 import { Link } from "react-router-dom";
-import { Sidebar } from "./Sidebar.jsx";
+import  Sidebar  from "./Sidebar.jsx";
 import "./home.css";
 
 export default function User() {
   return (
     <>
     <div className="container-new">
+    <Sidebar />
       <div className="others">
       <div classname="User">
         <div className="userTitleContainer">

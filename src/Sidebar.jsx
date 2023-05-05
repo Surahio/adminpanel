@@ -3,7 +3,7 @@ import "./Sidebar.css";
 import { LineStyle, Notifications, Publish, Payment, Storage, AttachMoney, Settings, ExitToApp} from '@material-ui/icons';
 import { Link } from "react-router-dom";
 
-export default function Sidebar(){
+export default function Sidebar() {
   return (
     <div className='sidebar'>
         <div className = 'top'>
@@ -34,18 +34,18 @@ export default function Sidebar(){
                 </ul>
             </div>
             <div className="sidebarmenu">
-                <h3 className="sidebartitle">Dataset</h3>
+                <h3 className="sidebartitle">Users</h3>
                 <ul className="sidebarlist">
                     <Link to="/dataset" className="link" style={{ textDecoration: 'none', color: 'inherit' }}>
                     <li className="sidebarlistitem">
                         <Storage className='sidebaricon'/>
-                        Datasets
+                        All Users
                     </li>
                     </Link>
                     <Link to="/Datasetform" className="link" style={{ textDecoration: 'none', color: 'inherit' }}>
                     <li className="sidebarlistitem">
                         <Publish className='sidebaricon'/>
-                        Dataset Upload
+                        Add User
                     </li>
                     </Link>
                 </ul>
@@ -56,13 +56,13 @@ export default function Sidebar(){
                     <Link to="/subscription" className="link" style={{ textDecoration: 'none', color: 'inherit' }}>
                     <li className="sidebarlistitem">
                         <AttachMoney className='sidebaricon'/>
-                        Pricing Plan
+                        Edit Pricing Plan
                     </li>
                     </Link>
                     <Link to="/payment-form" className="link" style={{ textDecoration: 'none', color: 'inherit' }}>
                     <li className="sidebarlistitem">
                         <Payment className='sidebaricon'/>
-                        Payment
+                        Edit Payment Form
                     </li>
                     </Link>
                 </ul>
@@ -93,3 +93,5 @@ export default function Sidebar(){
     </div>
   )
 }
+
+

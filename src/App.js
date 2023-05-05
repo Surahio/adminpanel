@@ -1,13 +1,12 @@
-
 import './App.css';
 import { useState } from "react";
 import PricingPlan from "./PricingPlan.jsx";
 import Loginpanel from './Loginpanel.jsx';
-import UserList from './Userlist.jsx';
+import Userlist from './Userlist.jsx';
 import User from './User.jsx';
 import Newuser from './Newuser.jsx';
 import UserStatus from './UserStatus.jsx';
-
+import Home from "./Home.js";
 import {
   createStyles,
   Navbar,
@@ -46,10 +45,12 @@ function App() {
           <Route path="/subscription" element={<PricingPlan />} />
           <Route path="/panelsub" element={<SubComp />} />
           <Route path="/loginpanel" element={<Loginpanel />} />
-          <Route path="/userlist" element={<UserList />} />
+          <Route path="/userlist" element={<Userlist />} />
           <Route path="/user/:userId" element={<User />} />
           <Route path="/newuser" element={<Newuser />} />
           <Route path="/UserStatus" element={<UserStatus />} />
+          <Route path="/home" element={<Home />} />
+
 
           navigate(path);
         </Routes>
