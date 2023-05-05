@@ -598,3 +598,14 @@ align-items: center;}
 .modal-try .modal-dialog {
   margin: 0;
 }
+
+.sub-table{
+  width: 100%;
+    align-content: center;
+    overflow-y:auto;
+}
+
+.sub-comtainer{
+  align-content: center;
+    overflow-y:auto;
+}
