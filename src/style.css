@@ -586,3 +586,15 @@ display:flex;
     display: flex;
 flex-direction: column;
 align-items: center;}
+
+
+.modal-try {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+}
+
+.modal-try .modal-dialog {
+  margin: 0;
+}
