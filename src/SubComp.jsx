@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import "./style.css";
-  import { Container, Table, Button } from "@mantine/core";
+import { Container, Table, Button } from "@mantine/core";
+import Sidebar from "./Sidebar.jsx";
+import "./home.css";
 
 
 
@@ -55,7 +57,11 @@ const SubComp = ({  onUpdate, onDelete, onAdd }) => {
   };
 
   return (
-    <><div className="row">
+    <>
+    <div className="container-new">
+          <Sidebar/>
+          <div className="others">
+          <div className="row">
       <a href="" target="_blank">
         <img src="/Logo_Ezhire.svg" className="logo tauri" alt="Tauri logo" />
       </a>
@@ -122,7 +128,10 @@ const SubComp = ({  onUpdate, onDelete, onAdd }) => {
 
         </Table>
         <Button onClick={handleAdd}>Add</Button>
-      </Container></>
+      </Container>
+          </div>
+    </div>
+    </>
   );
 };
 

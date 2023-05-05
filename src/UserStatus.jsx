@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 import "./style.css";
+import Sidebar from "./Sidebar.jsx";
+import "./home.css";
 
 function UserStatus() {
   const [status, setStatus] = useState('');
@@ -41,7 +43,11 @@ const handleIdChange = (event) => {
   };
 
   return (
-    <><div className="row">
+    <>
+    <div className="container-new">
+          <Sidebar/>
+          <div className="others">
+          <div className="row">
           <a href="" target="_blank">
               <img src="/Logo_Ezhire.svg" className="logo tauri" alt="Tauri logo" />
           </a>
@@ -63,7 +69,10 @@ const handleIdChange = (event) => {
                       )}
                   </div>
               )}
-          </div></>
+          </div>
+          </div>
+    </div>
+    </>
   );
 }
 

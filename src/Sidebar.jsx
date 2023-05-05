@@ -21,7 +21,7 @@ export default function Sidebar() {
             <div className="sidebarmenu">
                 <h3 className="sidebartitle">Dashboard</h3>
                 <ul className="sidebarlist">
-                    <Link to="/" className="link" style={{ textDecoration: 'none', color: 'inherit' }}>
+                    <Link to="/home" className="link" style={{ textDecoration: 'none', color: 'inherit' }}>
                     <li className="sidebarlistitem">
                         <LineStyle className='sidebaricon'/>
                         Home
@@ -36,13 +36,13 @@ export default function Sidebar() {
             <div className="sidebarmenu">
                 <h3 className="sidebartitle">Users</h3>
                 <ul className="sidebarlist">
-                    <Link to="/dataset" className="link" style={{ textDecoration: 'none', color: 'inherit' }}>
+                    <Link to="/userlist" className="link" style={{ textDecoration: 'none', color: 'inherit' }}>
                     <li className="sidebarlistitem">
                         <Storage className='sidebaricon'/>
                         All Users
                     </li>
                     </Link>
-                    <Link to="/Datasetform" className="link" style={{ textDecoration: 'none', color: 'inherit' }}>
+                    <Link to="/newuser" className="link" style={{ textDecoration: 'none', color: 'inherit' }}>
                     <li className="sidebarlistitem">
                         <Publish className='sidebaricon'/>
                         Add User
@@ -53,7 +53,7 @@ export default function Sidebar() {
             <div className="sidebarmenu">
                 <h3 className="sidebartitle">Subscription</h3>
                 <ul className="sidebarlist">
-                    <Link to="/subscription" className="link" style={{ textDecoration: 'none', color: 'inherit' }}>
+                    <Link to="/panelsub" className="link" style={{ textDecoration: 'none', color: 'inherit' }}>
                     <li className="sidebarlistitem">
                         <AttachMoney className='sidebaricon'/>
                         Edit Pricing Plan
@@ -81,7 +81,7 @@ export default function Sidebar() {
             <div className="sidebarmenu">
                 <h3 className="sidebartitle">Logout</h3>
                 <ul className="sidebarlist">
-                    <Link to="/" className="link" style={{ textDecoration: 'none', color: 'inherit' }}>
+                    <Link to="/loginpanel" className="link" style={{ textDecoration: 'none', color: 'inherit' }}>
                     <li className="sidebarlistitem">
                         <ExitToApp className='sidebaricon' />
                         Logout

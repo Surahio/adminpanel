@@ -2,6 +2,8 @@ import App from "./App.js";
 import "./style.css";
 import { Container } from "@mantine/core";
 import React, { useState } from "react";
+import Sidebar from "./Sidebar.jsx";
+import "./home.css";
 
 const PricingPlan = () => {
   const [plans, setPlans] = useState([
@@ -47,26 +49,30 @@ const PricingPlan = () => {
 
   const PlanCard = ({ title, price, features, index }) => {
     return (
+      
       <div>
-        <Container height={700} width={300} p="md"></Container>
+          <Container height={700} width={300} p="md"></Container>
 
-        <div className="plan-card">
-          <h2>{title}</h2>
-          <p className="price">{price}</p>
-          <ul className="features">
-            {features.map((feature, index) => (
-              <li key={index}>{feature}</li>
-            ))}
-          </ul>
-          <button onClick={() => removePlan(index)}>Remove Plan</button>
+          <div className="plan-card">
+            <h2>{title}</h2>
+            <p className="price">{price}</p>
+            <ul className="features">
+              {features.map((feature, index) => (
+                <li key={index}>{feature}</li>
+              ))}
+            </ul>
+            <button onClick={() => removePlan(index)}>Remove Plan</button>
+          </div>
         </div>
-      </div>
     );
   };
 
   return (
     <>
-      <Container>
+      <div className="container-new">
+        <Sidebar />
+        <div className="others">
+        <Container>
         <div className="row">
           <a href="" target="_blank">
             <img
@@ -82,6 +88,8 @@ const PricingPlan = () => {
           <PlanCard key={index} {...plan} index={index} />
         ))}
         <button onClick={addPlan}>Add Plan</button>
+      </div>
+        </div>
       </div>
     </>
   );
