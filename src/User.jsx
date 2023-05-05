@@ -8,17 +8,26 @@ import {
   PhoneAndroid,
   Publish,
 } from "@material-ui/icons";
+import { Link } from "react-router-dom";
+import { Sidebar } from "./Sidebar.jsx";
+import "./home.css";
 
 export default function User() {
   return (
-    <div classname="User">
-        <div className = "userTitleContainer">
-          <h1 className = "UserTitle">Edit User</h1>
+    <>
+    <div className="container-new">
+      <div className="others">
+      <div classname="User">
+        <div className="userTitleContainer">
+          <h1 className="UserTitle">Edit User</h1>
+          <Link to="/newUser">
+            <button className="userAddButton">Create</button>
+          </Link>
         </div>
         <div className="userContainer">
           <div className="userShow">
             <div className="userShowTop">
-              <img src="" alt="" className="userShowImg"/>
+              <img src="" alt="" className="userShowImg" />
               <div className="userShowTopTitle">
                 <span className="userShowUsername">Anna Becker</span>
                 <span className="userShowUserTitle">Software developer</span>
@@ -49,68 +58,65 @@ export default function User() {
               </div>
             </div>
           </div>
-          <div className="userUpdate">  
-          <span className="userUpdateTitle">Edit</span>
-          <form className = "userUpdateForm">
-            <div className="userUpdateLeft">
-              <div className="userUpdateItem">
-                <label>Username</label>
-                <input
-                  type="text"
-                  placeholder="annabeck99"
-                  className="userUpdateInput"
-                />
+          <div className="userUpdate">
+            <span className="userUpdateTitle">Edit</span>
+            <form className="userUpdateForm">
+              <div className="userUpdateLeft">
+                <div className="userUpdateItem">
+                  <label>Username</label>
+                  <input
+                    type="text"
+                    placeholder="annabeck99"
+                    className="userUpdateInput" />
+                </div>
+                <div className="userUpdateItem">
+                  <label>Full Name</label>
+                  <input
+                    type="text"
+                    placeholder="Anna Becker"
+                    className="userUpdateInput" />
+                </div>
+                <div className="userUpdateItem">
+                  <label>Email</label>
+                  <input
+                    type="text"
+                    placeholder="annabeck99@gmail.com"
+                    className="userUpdateInput" />
+                </div>
+                <div className="userUpdateItem">
+                  <label>Phone</label>
+                  <input
+                    type="text"
+                    placeholder="+9232134314"
+                    className="userUpdateInput" />
+                </div>
+                <div className="userUpdateItem">
+                  <label>Address</label>
+                  <input
+                    type="text"
+                    placeholder="New York | USA"
+                    className="userUpdateInput" />
+                </div>
               </div>
-              <div className="userUpdateItem">
-                <label>Full Name</label>
-                <input
-                  type="text"
-                  placeholder="Anna Becker"
-                  className="userUpdateInput"
-                />
+              <div className="userUpdateRight">
+                <div className="userUpdateUpload">
+                  <img
+                    className="userUpdateImg"
+                    src=""
+                    alt="" />
+                  <label htmlFor="file">
+                    <Publish className="userUpdateIcon" />
+                  </label>
+                  <input type="file" id="file" style={{ display: "none" }} />
+                </div>
+                <button className="userUpdateButton">Update</button>
               </div>
-              <div className="userUpdateItem">
-                <label>Email</label>
-                <input
-                  type="text"
-                  placeholder="annabeck99@gmail.com"
-                  className="userUpdateInput"
-                />
-              </div>
-              <div className="userUpdateItem">
-                <label>Phone</label>
-                <input
-                  type="text"
-                  placeholder="+9232134314"
-                  className="userUpdateInput"
-                />
-              </div>
-              <div className="userUpdateItem">
-                <label>Address</label>
-                <input
-                  type="text"
-                  placeholder="New York | USA"
-                  className="userUpdateInput"
-                />
-              </div>
-            </div>
-            <div className="userUpdateRight">
-              <div className="userUpdateUpload">
-                <img
-                  className="userUpdateImg"
-                  src=""
-                  alt=""
-                />
-                <label htmlFor="file">
-                  <Publish className="userUpdateIcon" />
-                </label>
-                <input type="file" id="file" style={{ display: "none" }} />
-              </div>
-              <button className="userUpdateButton">Update</button>
-            </div>
-          </form>
-          </div>  
+            </form>
+          </div>
         </div>
+      </div>
+      </div>
     </div>
+    </>
   )
 }

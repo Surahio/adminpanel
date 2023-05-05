@@ -5,6 +5,7 @@ import PricingPlan from "./PricingPlan.jsx";
 import Loginpanel from './Loginpanel.jsx';
 import UserList from './Userlist';
 import User from './User';
+import Newuser from './Newuser';
 
 import {
   createStyles,
@@ -33,23 +34,27 @@ import {
 import { MantineLogo } from "@mantine/ds";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import SubComp from './SubComp';
+import Sidebar from './Sidebar';
 
 function App() {
   return (
-    <div className={"App"}>
-      <BrowserRouter>
-      
+    <BrowserRouter>
+
         <Routes>
-          <Route path="" element={<PricingPlan />} />
+          <Route path="" />
           <Route path="/subscription" element={<PricingPlan />} />
           <Route path="/panelsub" element={<SubComp />} />
           <Route path="/loginpanel" element={<Loginpanel />} />
           <Route path="/userlist" element={<UserList />} />
           <Route path="/user/:userId" element={<User />} />
+          <Route path="/newuser" element={<Newuser />} />
+
           navigate(path);
         </Routes>
       </BrowserRouter>
-    </div>
+  
+
+    
   );
 }
 export default App;
