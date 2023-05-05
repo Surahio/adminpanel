@@ -2,6 +2,7 @@ import './App.css';
 import { useState } from "react";
 import PricingPlan from "./PricingPlan.jsx";
 import Loginpanel from './Loginpanel.jsx';
+import DatasetPage from './DatasetPage.jsx';
 import Userlist from './Userlist.jsx';
 import User from './User.jsx';
 import Newuser from './Newuser.jsx';
@@ -50,6 +51,8 @@ function App() {
           <Route path="/newuser" element={<Newuser />} />
           <Route path="/UserStatus" element={<UserStatus />} />
           <Route path="/home" element={<Home />} />
+          <Route path="/DatasetPage" element={<DatasetPage />} />
+
 
 
           navigate(path);
