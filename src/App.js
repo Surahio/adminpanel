@@ -3,9 +3,10 @@ import './App.css';
 import { useState } from "react";
 import PricingPlan from "./PricingPlan.jsx";
 import Loginpanel from './Loginpanel.jsx';
-import UserList from './Userlist';
-import User from './User';
-import Newuser from './Newuser';
+import UserList from './Userlist.jsx';
+import User from './User.jsx';
+import Newuser from './Newuser.jsx';
+import UserStatus from './UserStatus.jsx';
 
 import {
   createStyles,
@@ -48,37 +49,16 @@ function App() {
           <Route path="/userlist" element={<UserList />} />
           <Route path="/user/:userId" element={<User />} />
           <Route path="/newuser" element={<Newuser />} />
+          <Route path="/UserStatus" element={<UserStatus />} />
 
           navigate(path);
         </Routes>
       </BrowserRouter>
-  
 
-    
+
+
   );
 }
 export default App;
 
-
-
-
-// import './App.css';
-// import PricingPlan from './PricingPlan';
-// import { useState } from "react";
-// import { BrowserRouter, Routes, Route } from "react-router-dom";
-
-// function App() {
-//   return (
-// <div className={"App"}>
-// <h2>  pewdipie</h2>
-//       <BrowserRouter>
-//         <Routes>
-//           <Route path=" " element={<PricingPlan />} />
-//           navigate(path);
-//         </Routes>               
-//       </BrowserRouter>
-//     </div>
-
-// )}
-// export default App;
 

@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import "./style.css";
   import { Container, Table, Button } from "@mantine/core";
 
 
@@ -54,61 +55,56 @@ const SubComp = ({  onUpdate, onDelete, onAdd }) => {
   };
 
   return (
-    <Container>
-      <Table>
-        <thead>
-          <tr>
-            <th>Title</th>
-            <th>Price</th>
-            <th>Features</th>
-            <th>Actions</th>
-          </tr>
-        </thead>
-        <tbody>
+    <><div className="row">
+      <a href="" target="_blank">
+        <img src="/Logo_Ezhire.svg" className="logo tauri" alt="Tauri logo" />
+      </a>
+    </div><Container>
+        <Table>
+          <thead>
+            <tr>
+              <th>Title</th>
+              <th>Price</th>
+              <th>Features</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+
           {plans.map((plan, index) => (
             <tr key={index}>
-              <td>
+              <th>
                 {editIndex === index ? (
                   <input
                     type="text"
                     value={plan.title}
-                    onChange={(e) =>
-                      onUpdate(index, { ...plan, title: e.target.value })
-                    }
-                  />
+                    onChange={(e) => onUpdate(index, { ...plan, title: e.target.value })} />
                 ) : (
                   plan.title
                 )}
-              </td>
-              <td>
+              </th>
+              <th>
                 {editIndex === index ? (
                   <input
                     type="text"
                     value={plan.price}
-                    onChange={(e) =>
-                      onUpdate(index, { ...plan, price: e.target.value })
-                    }
-                  />
+                    onChange={(e) => onUpdate(index, { ...plan, price: e.target.value })} />
                 ) : (
                   plan.price
                 )}
-              </td>
-              <td>
+              </th>
+              <th>
                 {editIndex === index ? (
                   <textarea
                     value={plan.features.join("\n")}
-                    onChange={(e) =>
-                      onUpdate(index, {
-                        ...plan,
-                        features: e.target.value.split("\n"),
-                      })
-                    }
-                  />
+                    onChange={(e) => onUpdate(index, {
+                      ...plan,
+                      features: e.target.value.split("\n"),
+                    })} />
                 ) : (
                   plan.features.join(", ")
                 )}
-              </td>
-              <td>
+              </th>
+              <th>
                 {editIndex === index ? (
                   <>
                     <Button onClick={() => handleSave(index, plan)}>Save</Button>{" "}
@@ -120,13 +116,13 @@ const SubComp = ({  onUpdate, onDelete, onAdd }) => {
                     <Button onClick={() => handleDelete(index)}>Delete</Button>
                   </>
                 )}
-              </td>
+              </th>
             </tr>
           ))}
-        </tbody>
-      </Table>
-      <Button onClick={handleAdd}>Add</Button>
-    </Container>
+
+        </Table>
+        <Button onClick={handleAdd}>Add</Button>
+      </Container></>
   );
 };
 
