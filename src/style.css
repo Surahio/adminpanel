@@ -319,6 +319,7 @@ color:red;
   align-items: start;
   margin:auto;
   max-width: 600px;
+  align-items: center;
 }
 
 
@@ -600,12 +601,23 @@ align-items: center;}
 }
 
 .sub-table{
-  width: 100%;
-    align-content: center;
     overflow-y:auto;
+    justify-content: center;
+  align-items: center;
+  
 }
 
-.sub-comtainer{
+.sub-container{
   align-content: center;
     overflow-y:auto;
+    width: 50%;
+}
+
+
+.table-panel {
+  max-width: 500px;
+  padding: 20px;
+  background-color: #f2f2f2;
+  border-radius: 5px;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
 }
