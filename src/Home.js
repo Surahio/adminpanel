@@ -7,9 +7,18 @@ function Home() {
         <div className="container-new">
           <Sidebar/>
           <div className="others">
-            other pages
+            <div className='staringpage'>
+              <div className="startingh2">
+                Welcome to EZ Hire
+              </div>
+              <div className="StyledSubTitle">
+                Hiring made simpler
+              </div>
+            </div>
           </div>
         </div>
+
+
     );
 }
 export default Home;
