@@ -43,7 +43,7 @@ const columns = [
     renderCell: (params) => {
       return (
         <>
-        <Link to={"/user/" + params.row.id}>
+        <Link to={{pathname: "/user/" + params.row.id, state: data}}>
         <button className="userListEdit">Edit</button>
         </Link>
         <DeleteOutline
@@ -62,6 +62,7 @@ const columns = [
       <Sidebar />
       <div className="others">
       <div className='userList'>
+      <span className="datasetUpdateTitle">Users List</span>
       <DataGrid
         rows={data}
         columns={columns}
