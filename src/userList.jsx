@@ -19,8 +19,8 @@ const handleDelete = (id) => {
 const columns = [
   { field: 'id', headerName: 'ID', width: 200 },
   {
-    field: 'username',
-    headerName: 'Username',
+    field: 'name',
+    headerName: 'Name',
     width: 200,
     editable: true,
   },
