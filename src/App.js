@@ -53,8 +53,6 @@ function App() {
           <Route path="/home" element={<Home />} />
           <Route path="/DatasetPage" element={<DatasetPage />} />
 
-
-
           navigate(path);
         </Routes>
       </BrowserRouter>

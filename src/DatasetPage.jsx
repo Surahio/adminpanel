@@ -2,6 +2,8 @@ import React, { useState } from 'react';
 import { Table, Button, Modal, Form } from 'react-bootstrap';
 import "./style.css";
 import { Container } from '@mantine/core';
+import Sidebar from "./Sidebar.jsx";
+import "./home.css";
 
 const dummyData = [
   {
@@ -44,7 +46,11 @@ const DatasetPage = () => {
   };
 
   return (
-    <><div className="row">
+    <>
+    <div className="container-new">
+          <Sidebar/>
+          <div className="others">
+          <div className="row">
           <a href="" target="_blank">
               <img src="/Logo_Ezhire.svg" className="logo tauri" alt="Tauri logo" />
           </a>
@@ -153,7 +159,9 @@ const DatasetPage = () => {
               </Modal>
           </div>
           </Container>
-          </>
+          </div>
+        </div>
+    </>
   );
 };
 

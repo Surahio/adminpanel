@@ -11,8 +11,58 @@ import {
 import { Link } from "react-router-dom";
 import  Sidebar  from "./Sidebar.jsx";
 import "./home.css";
+import { userRows } from "./dummyData.js";
+import { useState } from "react";
 
 export default function User() {
+
+  const [data, setData] = useState(userRows);
+  const url = window.location.href;
+  const index = parseInt(url.substring(url.lastIndexOf('/') + 1));
+  //const user = userRows.filter(user => user.id === index)[0];
+
+  const [name, setName] = useState("");
+  const [username, setUsername] = useState("");
+  const [email, setEmail] = useState("");
+  const [contact, setContact] = useState("");
+  const [location, setLocation] = useState("");
+  const user = data[index - 1];
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+  
+    if (index !== -1) {
+      const updatedUser = {
+        ...user,
+        name,
+        username,
+        email,
+        contact,
+        location,
+      };
+  
+      const newData = [...data];
+      newData[index - 1] = updatedUser;
+      setData(newData);
+    }
+
+    const formData = new FormData(e.target);
+      
+        // Convert form data to JSON string
+        const jsonData = JSON.stringify(Object.fromEntries(formData));
+      
+        console.log(jsonData);
+        e.target.reset();
+  
+    setName("");
+    setUsername("");
+    setEmail("");
+    setContact("");
+    setLocation("");
+  };
+  
+
+
   return (
     <>
     <div className="container-new">
@@ -30,73 +80,90 @@ export default function User() {
             <div className="userShowTop">
               <img src="" alt="" className="userShowImg" />
               <div className="userShowTopTitle">
-                <span className="userShowUsername">Anna Becker</span>
-                <span className="userShowUserTitle">Software developer</span>
+              <span className='userShowUsername'>{user.name}</span>
+                <span className="userShowUserTitle">{user.title}</span>
               </div>
             </div>
             <div className="userShowButton">
               <span className="userShowTitle">Account Details</span>
               <div className="userShowInfo">
                 <PermIdentity className="userShowIcon" />
-                <span className="userShowInfoTitle">annabeck99</span>
+                <span className="userShowInfoTitle">{user.username}</span>
               </div>
               <div className="userShowInfo">
                 <CalendarToday className="userShowIcon" />
-                <span className="userShowInfoTitle">10.12.1999</span>
+                <span className="userShowInfoTitle">{user.dob}</span>
               </div>
               <span className="userShowTitle">Contact Details</span>
               <div className="userShowInfo">
                 <PhoneAndroid className="userShowIcon" />
-                <span className="userShowInfoTitle">+9232134314</span>
+                <span className="userShowInfoTitle">{user.contact}</span>
               </div>
               <div className="userShowInfo">
                 <MailOutline className="userShowIcon" />
-                <span className="userShowInfoTitle">annabeck99@gmail.com</span>
+                <span className="userShowInfoTitle">{user.email}</span>
               </div>
               <div className="userShowInfo">
                 <LocationSearching className="userShowIcon" />
-                <span className="userShowInfoTitle">New York | USA</span>
+                <span className="userShowInfoTitle">{user.location}</span>
               </div>
             </div>
           </div>
           <div className="userUpdate">
             <span className="userUpdateTitle">Edit</span>
-            <form className="userUpdateForm">
+            
+            <form className="userUpdateForm" onSubmit={handleSubmit}>
               <div className="userUpdateLeft">
-                <div className="userUpdateItem">
-                  <label>Username</label>
+                <div className="userUpdateItem" >
+                  <label htmlFor="username">UserName:</label>
                   <input
                     type="text"
                     placeholder="annabeck99"
-                    className="userUpdateInput" />
+                    className="userUpdateInput"
+                    name="username"
+                    value={username} onChange={(e) => setUsername(e.target.value)}
+                    
+                  />
                 </div>
                 <div className="userUpdateItem">
-                  <label>Full Name</label>
+                  <label htmlFor="name">Full Name</label>
                   <input
                     type="text"
                     placeholder="Anna Becker"
-                    className="userUpdateInput" />
+                    className="userUpdateInput" 
+                    name="name"
+                    value={name} onChange={(e) => setName(e.target.value)}
+                    />
                 </div>
                 <div className="userUpdateItem">
-                  <label>Email</label>
+                  <label htmlFor="email">Email:</label>
                   <input
                     type="text"
                     placeholder="annabeck99@gmail.com"
-                    className="userUpdateInput" />
+                    className="userUpdateInput" 
+                    name="email"
+                    value={email} onChange={(e) => setEmail(e.target.value)}
+                    />
                 </div>
                 <div className="userUpdateItem">
-                  <label>Phone</label>
+                  <label htmlFor="contact">Phone</label>
                   <input
                     type="text"
                     placeholder="+9232134314"
-                    className="userUpdateInput" />
+                    className="userUpdateInput" 
+                    name="contact"
+                    value={contact} onChange={(e) => setContact(e.target.value)}
+                    />
                 </div>
                 <div className="userUpdateItem">
-                  <label>Address</label>
+                  <label htmlFor="location">Address</label>
                   <input
                     type="text"
                     placeholder="New York | USA"
-                    className="userUpdateInput" />
+                    className="userUpdateInput" 
+                    name="location"
+                    value={location} onChange={(e) => setLocation(e.target.value)}
+                    />
                 </div>
               </div>
               <div className="userUpdateRight">
@@ -110,7 +177,7 @@ export default function User() {
                   </label>
                   <input type="file" id="file" style={{ display: "none" }} />
                 </div>
-                <button className="userUpdateButton">Update</button>
+                <button className="userUpdateButton" type="submit">Update</button>
               </div>
             </form>
           </div>
