@@ -1,11 +1,12 @@
 import './App.css';
 import { useState } from "react";
 import PricingPlan from "./PricingPlan.jsx";
-import Loginpanel from './Loginpanel.jsx';
+import Login from './Login.jsx';
 import DatasetPage from './DatasetPage.jsx';
 import Userlist from './Userlist.jsx';
 import User from './User.jsx';
 import Newuser from './Newuser.jsx';
+import Register from "./Register";
 import UserStatus from './UserStatus.jsx';
 import Home from "./Home.js";
 import {
@@ -42,10 +43,10 @@ function App() {
     <BrowserRouter>
 
         <Routes>
-          <Route path="" />
+          <Route path="" element={<Newuser />}/>
           <Route path="/subscription" element={<PricingPlan />} />
           <Route path="/panelsub" element={<SubComp />} />
-          <Route path="/loginpanel" element={<Loginpanel />} />
+          <Route path="/login" element={<Login />} />
           <Route path="/userlist" element={<Userlist />} />
           <Route path="/user/:userId" element={<User />} />
           <Route path="/newuser" element={<Newuser />} />
@@ -56,9 +57,6 @@ function App() {
           navigate(path);
         </Routes>
       </BrowserRouter>
-
-
-
   );
 }
 export default App;

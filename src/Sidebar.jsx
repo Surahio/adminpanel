@@ -56,10 +56,10 @@ export default function Sidebar() {
                         Edit Pricing Plan
                     </li>
                     </Link>
-                    <Link to="/payment-form" className="link" style={{ textDecoration: 'none', color: 'inherit' }}>
+                    <Link to="/subscription" className="link" style={{ textDecoration: 'none', color: 'inherit' }}>
                     <li className="sidebarlistitem">
                         <Payment className='sidebaricon'/>
-                        Edit Payment Form
+                        Edit Subscription Plans
                     </li>
                     </Link>
                 </ul>

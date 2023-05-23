@@ -1,11 +1,30 @@
-import "./Newuser.css";
-import Sidebar from "./Sidebar.jsx";
-import "./home.css";
-import { userRows } from "./dummyData.js";
 import { useState } from "react";
+import React from "react";
+import { invoke } from "@tauri-apps/api/tauri";
+import "./App.css";
+import "./style.css";
+// import { Button } from "./Components/Button";
+import { useNavigate } from "react-router-dom";
+import  Sidebar  from "./Sidebar.jsx";
+import { userRows } from "./dummyData.js";
 
 export default function NewUser() {
-    const [users, setUsers] = useState(userRows);
+    // const [users, setUsers] = useState(userRows);
+    // const [greetMsg, setGreetMsg] = useState("");
+    const [emailID, setEmail] = useState("");
+    const [name, setName] = useState("");
+    const [password, setPassword] = useState("");
+    const [cpassowrd, setCPassword] = useState("");
+    // const [VCode, setVCode] = useState("");
+    // const [response, setResponse] = useState("");
+    // //const [Remember, setRememberMe] = useState(false);
+    // const [T, setT] = useState(false);
+    // const [title, setTitle] = useState("Registration");
+    const [message, setMessage] = useState("");
+    const [passwordError, setPasswordError] = useState("");
+    const [matchError, setMatchError] = useState("");
+    const [RegBtnDisable, setRegBtnDisable]= useState(false);
+    const [isAdmin, setIsAdmin] = useState("");
     // const [myArray, _myArray] = useState([]);
     // const myObject = {
     //     _myArray: userRows,
@@ -15,22 +34,32 @@ export default function NewUser() {
     //     }
     //   };
 
-    const handleSubmit = (event) => {
-        event.preventDefault();
-      
-        // Get form data
-        const formData = new FormData(event.target);
-      
-        // Convert form data to JSON string
-        const jsonData = JSON.stringify(Object.fromEntries(formData));
-      
-        console.log(jsonData);
-        event.target.reset();
+    const emailValidation = () => {
+        const regEx = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        if (regEx.test(emailID)) {
+          setMessage("");
+        } else if (!regEx.test(emailID)) {
+          setMessage("Email is not valid");
+        } else {
+          setMessage("");
+        }
       };
-        
-
-      
-
+    
+      function validatePass() {
+        if (password.length < 8) {
+          setPasswordError("Password must be at least 8 characters long.");
+        } else {
+          setPasswordError("");
+        }
+      }
+    
+      function ComparePass() {
+        if (cpassowrd != password) {
+          setMatchError("Passwords do not match!");
+        } else {
+          setMatchError("");
+        }
+      }
   return (
     <>
     <div className="container-new">
@@ -39,32 +68,33 @@ export default function NewUser() {
           <div className="newUser">
           <span className="newUserTitle">New User</span>
               
-              <form className="newUserForm" onSubmit={handleSubmit}>
-                  <div className="newUserItem">
+              <form className="newUserForm" onSubmit={(e) => {e.preventDefault();}}>
+                  {/* <div className="newUserItem">
                       <label>Username</label>
                       <input type="text" placeholder="john" name="username"/>
-                  </div>
+                  </div> */}
+                    <React.Fragment> 
                   <div className="newUserItem">
                       <label>Full Name</label>
-                      <input type="text" placeholder="John Smith" name="fullName"/>
+                      <input type="text" placeholder="Enter Name" onChange={(e) => setName(e.currentTarget.value)}/>
                   </div>
                   <div className="newUserItem">
                       <label>Email</label>
-                      <input type="email" placeholder="john@gmail.com" name="email"/>
+                      <input type="email" placeholder="Email ID"  onChange={(e) => setEmail(e.currentTarget.value)}/>
                   </div>
                   <div className="newUserItem">
                       <label>Password</label>
-                      <input type="password" placeholder="password" name="password"/>
+                      <input type="Password" placeholder="password"  onChange={(e) => setPassword(e.currentTarget.value)}/>
                   </div>
                   <div className="newUserItem">
-                      <label>Phone</label>
-                      <input type="text" placeholder="+1 123 456 78" name="phone"/>
+                      <label>Confirm Password</label>
+                      <input type="Confirm Password" placeholder="Confirm Password" onChange={(e) => setCPassword(e.currentTarget.value)}/>
                   </div>
-                  <div className="newUserItem">
+                  {/* <div className="newUserItem">
                       <label>Address</label>
                       <input type="text" placeholder="New York | USA" name="address"/>
-                  </div>
-                  <div className="newUserItem">
+                  </div> */}
+                  {/* <div className="newUserItem">
                       <label>Gender</label>
                       <div className="newUserGender">
                           <input type="radio" name="gender" id="male" value="male" />
@@ -74,15 +104,48 @@ export default function NewUser() {
                           <input type="radio" name="gender" id="other" value="other" />
                           <label htmlFor="other">Other</label>
                       </div>
-                  </div>
-                  <div className="newUserItem">
-                      <label>Active</label>
-                      <select className="newUserSelect" name="active" id="active">
-                          <option value="yes">Yes</option>
-                          <option value="no">No</option>
-                      </select>
-                  </div>
-                  <button className="newUserButton" type="submit">Create</button>
+                  </div> */}
+                                <div className="newUserItem">
+  <label>Is Admin?</label>
+  <select
+    className="newUserSelect"
+    name="isAdmin"
+    id="isAdmin"
+    onChange={(e) => setIsAdmin(e.target.value)}
+  >
+    <option value="yes">Yes</option>
+    <option value="no">No</option>
+  </select>
+  <p>Selected value: {isAdmin}</p>
+</div>
+                  <button className="newUserButton" type="submit" disabled={RegBtnDisable}
+                  onClick={() => {
+                    console.log("Button Clicked")
+                    setRegBtnDisable(true);
+                    ComparePass();
+                    validatePass();
+                    emailValidation();
+                    console.log(isAdmin);
+                    invoke("create_user", {
+                      email: emailID,
+                      name: name,
+                      password: password,
+                      admin : isAdmin,
+                    })
+                    
+                    // .then((message) => {
+                    //   setResponse(message);
+                    //   console.log(message);
+                    //   var x = JSON.parse(message);
+                    //   setGreetMsg(x.response);
+                    //   console.log(x.value);
+                    //   setT(x.value);
+                    //   console.log("Toggle = ", T);
+                    //   setTitle("Verify Email");
+                    // });
+                    setRegBtnDisable(false);
+                  }}> Create </button>
+                </React.Fragment> 
               </form>
           </div>
           </div>
