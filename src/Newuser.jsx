@@ -24,7 +24,9 @@ export default function NewUser() {
     const [passwordError, setPasswordError] = useState("");
     const [matchError, setMatchError] = useState("");
     const [RegBtnDisable, setRegBtnDisable]= useState(false);
-    const [isAdmin, setIsAdmin] = useState("");
+    const [isAdmin, setIsAdmin] = useState({
+        admin: "no",
+    });
     // const [myArray, _myArray] = useState([]);
     // const myObject = {
     //     _myArray: userRows,
@@ -60,6 +62,13 @@ export default function NewUser() {
           setMatchError("");
         }
       }
+
+      const handleIsAdmin = (event) => {
+        setIsAdmin((prevState) => ({
+          ...prevState,
+          admin: event.target.value,
+        }));
+      };
   return (
     <>
     <div className="container-new">
@@ -110,13 +119,13 @@ export default function NewUser() {
   <select
     className="newUserSelect"
     name="isAdmin"
-    id="isAdmin"
-    onChange={(e) => setIsAdmin(e.target.value)}
+    label="isAdmin"
+    value={isAdmin.admin}
+    onChange={handleIsAdmin}
   >
     <option value="yes">Yes</option>
     <option value="no">No</option>
   </select>
-  <p>Selected value: {isAdmin}</p>
 </div>
                   <button className="newUserButton" type="submit" disabled={RegBtnDisable}
                   onClick={() => {
@@ -130,7 +139,7 @@ export default function NewUser() {
                       email: emailID,
                       name: name,
                       password: password,
-                      admin : isAdmin,
+                      admin : isAdmin.admin,
                     })
                     
                     // .then((message) => {

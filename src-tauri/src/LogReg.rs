@@ -161,7 +161,7 @@ pub async fn create_user(email:String, name:String, password:String, admin:Strin
             sub_type:0,
             datasets:Vec::new(),
             two_fa:false,
-            verified:false,
+            verified:true,
             blocked:false,
             isAdmin:false,
             trial:String::from(""),
@@ -188,7 +188,7 @@ pub async fn create_user(email:String, name:String, password:String, admin:Strin
 
     if &result == "null"{
         let _response = client.put(&url).body(serde_json::to_string(&x).unwrap().replace("\\", "")).send().await.unwrap();
-        generate_vcode(email.clone()).await;
+        // generate_vcode(email.clone()).await;
         answer.response = String::from("Success!")
     }else{
         println!("Account Already exists in Database");

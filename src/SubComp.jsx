@@ -77,8 +77,12 @@ const SubComp = ({ onUpdate, onDelete, onAdd }) => {
 
   const [newPlan, setNewPlan] = useState({
     title: "",
-    price: "",
+    price:"",
+    discount:"",
+    currency: "USD",
+    isdiscount: "True",
     features: [],
+    timespan: "Monthly",
   });
   const [showForm, setShowForm] = useState(false);
 
@@ -112,6 +116,18 @@ const SubComp = ({ onUpdate, onDelete, onAdd }) => {
     if (typeof onAdd === "function") {
       onAdd(newPlan);
     }
+    console.log(JSON.stringify(newPlan));
+
+  // Clear the form input fields
+  setNewPlan({
+    title: "",
+    price: "",
+    discount: "",
+    currency: "",
+    isdiscount: "",
+    features: [],
+    timespan: "",
+  });
     setShowForm(false);
   };
 
@@ -123,9 +139,58 @@ const SubComp = ({ onUpdate, onDelete, onAdd }) => {
     setNewPlan({ ...newPlan, price: event.target.value });
   };
 
+  const handlediscount= (event) => {
+    setNewPlan({ ...newPlan, discount: event.target.value });
+  };
+
+  const handleCurrency = (event) => {
+    setNewPlan((prevState) => ({
+      ...prevState,
+      currency: event.target.value,
+    }));
+  };
+
+  const handleIsDiscount = (event) => {
+    setNewPlan((prevState) => ({
+      ...prevState,
+      isdiscount: event.target.value,
+    }));
+  };
+
   const handleFeaturesChange = (event) => {
     setNewPlan({ ...newPlan, features: event.target.value.split("\n") });
   };
+
+  const handleTimespan = (event) => {
+    setNewPlan((prevState) => ({
+      ...prevState,
+      timespan: event.target.value,
+    }));
+  };
+
+  /*const handleSubmit = (event) => {
+    event.preventDefault();
+  
+    // Create a new FormData object
+    const formData = new FormData(event.target);
+  
+    // Create an empty object to store the form values
+    const formValues = {};
+  
+    // Iterate over the FormData entries and assign them to the formValues object
+    for (let [name, value] of formData.entries()) {
+      formValues[name] = value;
+    }
+  
+    // Convert formValues object to JSON string
+    const jsonData = JSON.stringify(formValues);
+  
+    console.log(jsonData);
+    event.target.reset();
+  };*/
+  
+
+ 
 
   return (
     <>
@@ -172,6 +237,7 @@ const SubComp = ({ onUpdate, onDelete, onAdd }) => {
     <th>
       {editIndex === index ? (
         <TextInput
+        type="number"
           value={plan.price}
           onChange={(event) =>
             handleSave(index, { ...plan, price: event.target.value })
@@ -241,35 +307,78 @@ const SubComp = ({ onUpdate, onDelete, onAdd }) => {
 
 
 {showForm && (
+  <form > 
   <div className="form-overlay">
     <div className="form-container">
       <h2>Add New Plan</h2>
       <TextInput
+        name="title"
         label="Title"
         value={newPlan.title}
         onChange={handleTitleChange}
       />
       <TextInput
+        name="price"
         label="Price"
         value={newPlan.price}
         onChange={handlePriceChange}
       />
+      <label>Currency</label>
+      <select 
+        label="Currency"
+        value={newPlan.currency}
+        onChange={handleCurrency}
+      >
+        <option value="USD">USD</option>
+        <option value="PKR">PKR</option>
+        <option value="RUB">RUB</option>
+      </select>
+      <TextInput
+        name="discount"
+        label="Discount"
+        value={newPlan.discount}
+        onChange={handlediscount}
+      />
+      <label>Is Discount?</label>
+      <select 
+        name="isdiscount"
+        label="isDiscount"
+        value={newPlan.isdiscount}
+        onChange={handleIsDiscount}
+      >
+        <option value="True">True</option>
+        <option value="False">False</option>
+      </select>
       <Textarea
+        name="features"
         label="Features"
-        placeholder="Enter one feature per line"
+        placeholder="Enter features seperated by commma(,)"
         value={newPlan.features.join("\n")}
         onChange={handleFeaturesChange}
       />
-      <div className="button-container">
+      <label>Timespan</label>
+      <select 
+        name="timespan"
+        label="TimeSpan"
+        value={newPlan.timespan}
+        onChange={handleTimespan}
+      >
+        <option value="Weekly">Weekly</option>
+        <option value="Monthly">Monthly</option>
+        <option value="Yearly">Yearly</option>
+      </select>
+      
+    </div>
+    <div className="button-container">
         <Button variant="light" onClick={handleClose}>
           Close
         </Button>
-        <Button variant="light" onClick={handleSaveNewPlan}>
+        <Button variant="light" type="submit" onClick={handleSaveNewPlan}>
           Save
         </Button>
       </div>
-    </div>
   </div>
+  </form>
 )}
 </div>
 </div>

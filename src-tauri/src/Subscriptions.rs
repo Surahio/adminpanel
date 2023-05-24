@@ -2,6 +2,61 @@ use reqwest::Client;
 use serde::{Serialize, Deserialize};
 use serde_json::{Value};
 
+use rand::Rng;
+
+fn randomizer()->i32 {
+    // Create a random number generator
+    let mut rng = rand::thread_rng();
+
+    // Generate a random number between 1 and 100
+    let random_number = rng.gen_range(1..=1000000);
+
+    random_number
+}
+
+#[tauri::command]
+pub async fn sub(name:String, discount:f32, price:f32, currency:String, is_discounted:bool, feature:String,timespan:String){
+
+    let y = randomizer();
+    let features_delim=split_by_comma(&feature);
+
+    let mut x = Subscription::new();
+    x.set_id(y.clone().to_string());
+    x.set_name(name);
+    x.set_discount(discount);
+    x.set_price(price);
+    x.set_currency(currency);
+    x.set_discounted(is_discounted);
+    x.set_features(features_delim);
+    x.set_timespan(timespan);
+    println!("{:?}",x);
+
+    let client = Client::builder().build().unwrap();
+
+    let url = push_sub_url(y.clone().to_string()).await;
+    let data = serde_json::to_string(&x).unwrap();
+
+    let r1 = client.put(&url).body(data).send().await.unwrap();
+
+    }
+
+    fn split_by_comma(s: &str) -> Vec<String> {
+        s.split(',').map(|x| x.trim().to_string()).collect()
+    }
+
+    pub async fn push_sub_url(random:String) -> String{
+
+            let mut url = String::from("");
+        
+            url.push_str("https://ezhire-c4044-default-rtdb.asia-southeast1.firebasedatabase.app/Subscriptions/");
+            url.push_str(&random);
+            url.push_str(".json");
+        
+            return url;
+        
+    } 
+
+
 #[derive(Serialize, Deserialize, Debug)]
 pub struct Subscription{
     id:String,
@@ -124,7 +179,7 @@ pub async fn basic() -> Subscription{
 
 }
 
-/*async fn url_generator(obj:&Subscription) -> String{
+async fn url_generator(obj:&Subscription) -> String{
 
     let mut url = String::from("");
 
@@ -176,4 +231,4 @@ pub async fn delete(id:String,  client:&Client){
     }
 
     client.delete(&url).send().await.unwrap();
-}*/
+}
