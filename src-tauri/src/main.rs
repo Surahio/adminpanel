@@ -106,6 +106,7 @@
         LogReg::match_2fa,
         LogReg::remember_me_token, 
         Subscriptions::sub,
+        Subscriptions::reader,
       ])
       .run(tauri::generate_context!())
       .expect("error while running tauri application");

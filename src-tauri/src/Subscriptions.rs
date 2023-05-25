@@ -13,12 +13,54 @@ fn randomizer()->i32 {
 
     random_number
 }
+pub async fn url_generator_sub()-> String{
+    let mut url = String::from("");
+
+    url.push_str("https://test-2fca3-default-rtdb.firebaseio.com/Subscriptions/");
+    // url.push_str("454144");
+    url.push_str(".json");
+
+    return url;
+}
+
+pub async fn remove_sub() {
+    let client = Client::builder().build().unwrap();
+
+    let url = url_generator_sub().await;
+
+    let r1 = client.get(&url).send().await.unwrap();
+    let response_json: serde_json::Value = r1.json().await.unwrap();
+
+    let key = match response_json.as_object().and_then(|obj| obj.keys().next()) {
+        Some(key) => key.to_string(),
+        None => {
+            println!("Error: Response JSON doesn't contain any keys.");
+            return;
+        }
+    };
+
+    let delete_url = format!("{}?{}={}", &url, key, "null"); // Create the delete URL
+
+    let _response = client.delete(&delete_url).send().await.unwrap();
+}
+#[tauri::command]
+pub async fn reader()-> String{
+    let client = Client::builder().build().unwrap();
+
+    let url = url_generator_sub().await;
+
+    let r1 = client.get(&url).send().await.unwrap();
+    let result = r1.text().await.unwrap(); 
+    println!("{:?}",result);
+    return result;
+}
 
 #[tauri::command]
-pub async fn sub(name:String, discount:f32, price:f32, currency:String, is_discounted:bool, feature:String,timespan:String){
+// pub async fn sub(name:String, discount:String, price:String, currency:String, is_discounted:bool, feature:String,timespan:String){
+pub async fn sub(name:String, discount:String, price:String, currency:String, is_discounted:bool, feature:Vec<String>,timespan:String){
 
     let y = randomizer();
-    let features_delim=split_by_comma(&feature);
+    // let features_delim=split_by_comma(&feature);
 
     let mut x = Subscription::new();
     x.set_id(y.clone().to_string());
@@ -27,7 +69,7 @@ pub async fn sub(name:String, discount:f32, price:f32, currency:String, is_disco
     x.set_price(price);
     x.set_currency(currency);
     x.set_discounted(is_discounted);
-    x.set_features(features_delim);
+    x.set_features(feature);
     x.set_timespan(timespan);
     println!("{:?}",x);
 
@@ -48,7 +90,7 @@ pub async fn sub(name:String, discount:f32, price:f32, currency:String, is_disco
 
             let mut url = String::from("");
         
-            url.push_str("https://ezhire-c4044-default-rtdb.asia-southeast1.firebasedatabase.app/Subscriptions/");
+            url.push_str("https://test-2fca3-default-rtdb.firebaseio.com/Subscriptions/");
             url.push_str(&random);
             url.push_str(".json");
         
@@ -62,8 +104,8 @@ pub struct Subscription{
     id:String,
     name:String,
     desc:String,
-    discount:f32,
-    price:f32,
+    discount:String,
+    price:String,
     currency:String,
     is_discounted:bool,
     features:Vec<String>,
@@ -77,13 +119,13 @@ impl Subscription{
         self.id="".to_owned();
         self.name="".to_owned();
         self.desc="".to_owned();
-        self.discount=0.00;
-        self.price=0.00;
-        self.currency="RUB".to_owned();
+        self.discount="".to_owned();
+        self.price="".to_owned();
+        self.currency="".to_owned();
         self.is_discounted=false;
         self.features=Vec::new();
         self.features_desc=Vec::new();
-        self.timespan="Monthly".to_owned();
+        self.timespan="".to_owned();
     }
 
     pub fn new()->Subscription{
@@ -92,13 +134,13 @@ impl Subscription{
             id:"".to_owned(),
             name:"".to_owned(),
             desc:"".to_owned(),
-            discount:0.00,
-            price:0.00,
-            currency:"RUB".to_owned(),
+            discount:"".to_owned(),
+            price:"".to_owned(),
+            currency:"".to_owned(),
             is_discounted:false,
             features:Vec::new(),
             features_desc:Vec::new(),
-            timespan:"Monthly".to_owned(),
+            timespan:"".to_owned(),
         }
 
     }    
@@ -114,11 +156,11 @@ impl Subscription{
         self.desc = text;
     }
 
-    pub fn set_discount(&mut self, text:f32){
+    pub fn set_discount(&mut self, text:String){
         self.discount = text;
     }
 
-    pub fn set_price(&mut self, text:f32){
+    pub fn set_price(&mut self, text:String){
         self.price = text;
     }
 
@@ -168,13 +210,13 @@ pub async fn basic() -> Subscription{
         id:"".to_owned(),
         name:"".to_owned(),
         desc:"".to_owned(),
-        discount:0.00,
-        price:0.00,
-        currency:"RUB".to_owned(),
+        discount:"".to_owned(),
+        price:"".to_owned(),
+        currency:"".to_owned(),
         is_discounted:false,
         features:Vec::new(),
         features_desc:Vec::new(),
-        timespan:"Monthly".to_owned(),
+        timespan:"".to_owned(),
     }
 
 }

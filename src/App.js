@@ -43,8 +43,8 @@ function App() {
     <BrowserRouter>
 
         <Routes>
-          <Route path="" element={<Newuser />}/>
-          <Route path="/subscription" element={<PricingPlan />} />
+          <Route path="" element={<SubComp />}/>
+          {/* <Route path="/subscription" element={<PricingPlan />} /> */}
           <Route path="/panelsub" element={<SubComp />} />
           <Route path="/login" element={<Login />} />
           <Route path="/userlist" element={<Userlist />} />

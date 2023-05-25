@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "./style.css";
 import {
   Container,
@@ -9,9 +9,9 @@ import {
 } from "@mantine/core";
 import Sidebar from "./Sidebar.jsx";
 import "./home.css";
+import { invoke } from "@tauri-apps/api";
 
 const SubComp = ({ onUpdate, onDelete, onAdd }) => {
-  const [editIndex, setEditIndex] = useState(-1);
   const plans = [
     {
       title: "Basic Plan",
@@ -75,15 +75,21 @@ const SubComp = ({ onUpdate, onDelete, onAdd }) => {
     },
   ];
 
-  const [newPlan, setNewPlan] = useState({
+  const defaultPlan = {
     title: "",
-    price:"",
-    discount:"",
+    price: "",
+    discount: "",
     currency: "USD",
-    isdiscount: "True",
+    isdiscount: true,
     features: [],
-    timespan: "Monthly",
-  });
+    timespan: "Weekly",
+  };
+
+  const [newPlan, setNewPlan] = useState(defaultPlan);
+
+  const [editIndex, setEditIndex] = useState(-1);
+
+  
   const [showForm, setShowForm] = useState(false);
 
   const handleEdit = (index) => {
@@ -113,34 +119,73 @@ const SubComp = ({ onUpdate, onDelete, onAdd }) => {
   };
 
   const handleSaveNewPlan = () => {
-    if (typeof onAdd === "function") {
-      onAdd(newPlan);
-    }
-    console.log(JSON.stringify(newPlan));
-
-  // Clear the form input fields
-  setNewPlan({
-    title: "",
-    price: "",
-    discount: "",
-    currency: "",
-    isdiscount: "",
-    features: [],
-    timespan: "",
-  });
+    const isModified = Object.keys(newPlan).some(
+      (key) => newPlan[key] !== defaultPlan[key]
+    );
+  
+    const finalPlan = {
+      ...defaultPlan,
+      ...(isModified && newPlan),
+    };
+  
+    console.log(JSON.stringify(finalPlan));
+  
+    // Clear the form input fields
+    setNewPlan(defaultPlan);
     setShowForm(false);
+
+    // if (typeof onAdd === "function") {
+    //   onAdd(newPlan);
+    // }
+    //console.log(JSON.stringify(newPlan));
+    invoke("sub", {
+      name: finalPlan.title,
+      discount: finalPlan.discount,
+      price: finalPlan.price,
+      currency: finalPlan.currency,
+      isDiscounted: finalPlan.isdiscount,
+      feature: finalPlan.features,
+      timespan: finalPlan.timespan
+    });
+  // Clear the form input fields
+  // setNewPlan({
+  //   title: "",
+  //   price:"",
+  //   discount:"",
+  //   currency: "USD",
+  //   isdiscount: "",
+  //   features: [],
+  //   timespan: "",
+  // });
+  //   setShowForm(false);
   };
+  // useEffect(() => {
+  //   console.log(newPlan);
+  // }, [newPlan]);
 
   const handleTitleChange = (event) => {
     setNewPlan({ ...newPlan, title: event.target.value });
   };
 
   const handlePriceChange = (event) => {
-    setNewPlan({ ...newPlan, price: event.target.value });
+    const enteredValue = event.target.value;
+    const integerValue = parseInt(enteredValue);
+  
+    if (!isNaN(integerValue)) {
+      setNewPlan({ ...newPlan, price: integerValue.toString() });
+    } else {
+      setNewPlan({ ...newPlan, price: "" });
+    }
   };
 
   const handlediscount= (event) => {
-    setNewPlan({ ...newPlan, discount: event.target.value });
+    const enteredValue = event.target.value;
+    const integerValue = parseInt(enteredValue);
+    if (!isNaN(integerValue)) {
+      setNewPlan({ ...newPlan, discount: integerValue.toString() });
+    } else {
+      setNewPlan({ ...newPlan, price: "" });
+    }  
   };
 
   const handleCurrency = (event) => {
@@ -148,6 +193,7 @@ const SubComp = ({ onUpdate, onDelete, onAdd }) => {
       ...prevState,
       currency: event.target.value,
     }));
+    // console.log(newPlan);
   };
 
   const handleIsDiscount = (event) => {
@@ -155,6 +201,7 @@ const SubComp = ({ onUpdate, onDelete, onAdd }) => {
       ...prevState,
       isdiscount: event.target.value,
     }));
+    // console.log(newPlan);
   };
 
   const handleFeaturesChange = (event) => {
@@ -166,6 +213,7 @@ const SubComp = ({ onUpdate, onDelete, onAdd }) => {
       ...prevState,
       timespan: event.target.value,
     }));
+    // console.log(newPlan);
   };
 
   /*const handleSubmit = (event) => {
@@ -237,7 +285,7 @@ const SubComp = ({ onUpdate, onDelete, onAdd }) => {
     <th>
       {editIndex === index ? (
         <TextInput
-        type="number"
+        // type="number"
           value={plan.price}
           onChange={(event) =>
             handleSave(index, { ...plan, price: event.target.value })
@@ -265,6 +313,8 @@ const SubComp = ({ onUpdate, onDelete, onAdd }) => {
     <th>
       {editIndex === index ? (
         <>
+        <br></br>
+        <br></br>
           <Button
             variant="light"
             onClick={() => handleSave(index, plan)}
@@ -272,6 +322,8 @@ const SubComp = ({ onUpdate, onDelete, onAdd }) => {
           >
             Save
           </Button>
+
+          
           <Button variant="light" onClick={handleCancel}>
             Cancel
           </Button>
@@ -300,14 +352,30 @@ const SubComp = ({ onUpdate, onDelete, onAdd }) => {
 </Table>
 
 </div>
-<Button variant="light" onClick={handleAdd}>
+<div class="button-container">
+<Button className="add-btn"  onClick={handleAdd}>
   Add New Plan
 </Button>
+<Button className="add-btn"
+onClick={()=>{
+  invoke("reader",{
+  }).then((message)=>{
+    console.log(message);
+
+    const json = JSON.parse(message);
+    console.log(json);
+    })
+}}
+>  
+  check
+</Button>
+  </div>
+
 </div>
 
 
 {showForm && (
-  <form > 
+  <form>
   <div className="form-overlay">
     <div className="form-container">
       <h2>Add New Plan</h2>
@@ -367,8 +435,10 @@ const SubComp = ({ onUpdate, onDelete, onAdd }) => {
         <option value="Monthly">Monthly</option>
         <option value="Yearly">Yearly</option>
       </select>
-      
+     
     </div>
+    </div>
+    <br></br>
     <div className="button-container">
         <Button variant="light" onClick={handleClose}>
           Close
@@ -377,8 +447,8 @@ const SubComp = ({ onUpdate, onDelete, onAdd }) => {
           Save
         </Button>
       </div>
-  </div>
-  </form>
+  
+  </form> 
 )}
 </div>
 </div>
