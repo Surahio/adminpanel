@@ -11,70 +11,181 @@ import Sidebar from "./Sidebar.jsx";
 import "./home.css";
 import { invoke } from "@tauri-apps/api";
 
-const SubComp = ({ onUpdate, onDelete, onAdd }) => {
-  const plans = [
-    {
-      title: "Basic Plan",
-      price: "$10/month",
-      features: ["1 GB Storage", "10 Users", "Email Support"],
-    },
-    {
-      title: "Pro Plan",
-      price: "$20/month",
-      features: ["10 GB Storage", "100 Users", "Email + Phone Support"],
-    },
-    {
-      title: "Enterprise Plan",
-      price: "$50/month",
-      features: [
-        "100 GB Storage",
-        "Unlimited Users",
-        "24/7 Support ",
-        "New element",
-      ],
-    },
-    {
-      title: "Basic Plan",
-      price: "$10/month",
-      features: ["1 GB Storage", "10 Users", "Email Support"],
-    },
-    {
-      title: "Pro Plan",
-      price: "$20/month",
-      features: ["10 GB Storage", "100 Users", "Email + Phone Support"],
-    },
-    {
-      title: "Enterprise Plan",
-      price: "$50/month",
-      features: [
-        "100 GB Storage",
-        "Unlimited Users",
-        "24/7 Support ",
-        "New element",
-      ],
-    },
-    {
-      title: "Basic Plan",
-      price: "$10/month",
-      features: ["1 GB Storage", "10 Users", "Email Support"],
-    },
-    {
-      title: "Pro Plan",
-      price: "$20/month",
-      features: ["10 GB Storage", "100 Users", "Email + Phone Support"],
-    },
-    {
-      title: "Enterprise Plan",
-      price: "$50/month",
-      features: [
-        "100 GB Storage",
-        "Unlimited Users",
-        "24/7 Support ",
-        "New element",
-      ],
-    },
-  ];
 
+
+
+const SubComp = ({ onUpdate, onDelete, onAdd }) => {
+
+  const [myArray, setMyArray] = useState([]);
+
+  // Function to append an element to the array
+  const appendElement = (x) => {
+    setMyArray(prevArray => [...prevArray, x]);
+  };
+
+
+
+  const [mycheck, setmycheck] = useState("");
+
+  const [newJson, setNewJson] = useState([
+    {
+      title: "",
+      price: "",
+      discount: "",
+      currency: "",
+      isdiscount: "",
+      features: [],
+      timespan: "",
+    }
+  ]);
+
+  // useEffect(() => {
+  //   invoke("showcase_x", {}).then((message1) => {
+  //     invoke("showcase_sub", {}).then((message2) => {
+  //       const json1 = JSON.parse(message1);
+  //       const json2 = JSON.parse(message2);
+  //       const j1 = json1.message;
+  //       console.log("hi");
+  //       const j2 = json2.message;
+  //       const j3 = JSON.parse(j2);
+  //       setVar(j1);
+  //       setTson(j3);
+  //     });
+  //   });
+  // }, []);
+  
+
+  // useEffect(() => {
+  //   let j1, j2, j3; // Declare the variables in the outer scope
+  
+  //   invoke("showcase_x", {})
+  //     .then((message1) => {
+  //       const json1 = JSON.parse(message1);
+  //       j1 = json1.message;
+  
+  //       // Process the data from showcase_x here
+  
+  //       return invoke("showcase_sub", {});
+  //     })
+  //     .then((message2) => {
+  //       const json2 = JSON.parse(message2);
+  //       j2 = json2.message;
+  //       j3 = JSON.parse(j2);
+  
+  //       // Process the data from showcase_sub here
+  //       // Execute the for loop based on j1 and j3
+  
+  //       for (let i = 0; i < j1.length; i++) {
+  //         appendElement(j3[j1[i]]);
+  //       }
+  //     });
+  // }, []);
+  
+  const [myJson, setmyJson] = useState("");
+
+  const [newVar, setVar] = useState('');
+  const [newTson, setTson] = useState('');
+  let newArray;
+  
+  useEffect(() => {
+    if (mycheck === "") {
+      const fetchData = async () => {
+        const message1 = await invoke("showcase_x", {});
+        const json1 = JSON.parse(message1);
+        const j1 = json1.message;
+        //console.log(j1);
+        setVar(j1);
+        invoke("showcase_sub", {}).then((message2) => {
+          const json2 = JSON.parse(message2);
+          const j2 = json2.message;
+          const j3 = JSON.parse(j2);
+          //console.log(j3);
+          setTson(j2);
+  
+          // Convert the JSON value to an array
+          newArray = Object.values(j3);
+          console.log(newArray);
+  
+          for (let i = 0; i < j1.length; i++) {
+            appendElement(j3[j1[i]]);
+          }
+        });
+      };
+  
+      fetchData();
+      setmycheck("nope");
+    }
+  }, [mycheck]);
+  
+  
+  
+    
+
+      const plans=myArray;
+      // =  newJson;
+      // const plans = [
+      //   {
+      //     title: "Basic Plan",
+      //     price: "$10/month",
+      //     features: ["1 GB Storage", "10 Users", "Email Support"],
+      //   },
+      //   {
+      //     title: "Pro Plan",
+      //     price: "$20/month",
+      //     features: ["10 GB Storage", "100 Users", "Email + Phone Support"],
+      //   },
+      //   {
+      //     title: "Enterprise Plan",
+      //     price: "$50/month",
+      //     features: [
+      //       "100 GB Storage",
+      //       "Unlimited Users",
+      //       "24/7 Support ",
+      //       "New element",
+      //     ],
+      //   },
+      //   {
+      //     title: "Basic Plan",
+      //     price: "$10/month",
+      //     features: ["1 GB Storage", "10 Users", "Email Support"],
+      //   },
+      //   {
+      //     title: "Pro Plan",
+      //     price: "$20/month",
+      //     features: ["10 GB Storage", "100 Users", "Email + Phone Support"],
+      //   },
+      //   {
+      //     title: "Enterprise Plan",
+      //     price: "$50/month",
+      //     features: [
+      //       "100 GB Storage",
+      //       "Unlimited Users",
+      //       "24/7 Support ",
+      //       "New element",
+      //     ],
+      //   },
+      //   {
+      //     title: "Basic Plan",
+      //     price: "$10/month",
+      //     features: ["1 GB Storage", "10 Users", "Email Support"],
+      //   },
+      //   {
+      //     title: "Pro Plan",
+      //     price: "$20/month",
+      //     features: ["10 GB Storage", "100 Users", "Email + Phone Support"],
+      //   },
+      //   {
+      //     title: "Enterprise Plan",
+      //     price: "$50/month",
+      //     features: [
+      //       "100 GB Storage",
+      //       "Unlimited Users",
+      //       "24/7 Support ",
+      //       "New element",
+      //     ],
+      //   },
+      // ];
+      
   const defaultPlan = {
     title: "",
     price: "",
@@ -94,6 +205,10 @@ const SubComp = ({ onUpdate, onDelete, onAdd }) => {
 
   const handleEdit = (index) => {
     setEditIndex(index);
+  };
+
+  const handleRefresh = () => {
+    window.location.reload();
   };
 
   const handleSave = (index, updatedPlan) => {
@@ -238,7 +353,6 @@ const SubComp = ({ onUpdate, onDelete, onAdd }) => {
   };*/
   
 
- 
 
   return (
     <>
@@ -261,8 +375,11 @@ const SubComp = ({ onUpdate, onDelete, onAdd }) => {
                 <tr>
                   <th>Title</th>
                   <th>Price</th>
+                  <th>Currency</th>
+                  <th>discount</th>
                   <th>Features</th>
-                  <th>Actions</th>
+                  <th>Timestamp</th>
+                  <th>Action</th>
                 </tr>
 
               
@@ -273,13 +390,13 @@ const SubComp = ({ onUpdate, onDelete, onAdd }) => {
     <th>
       {editIndex === index ? (
         <TextInput
-          value={plan.title}
+          value={plan.name}
           onChange={(event) =>
-            handleSave(index, { ...plan, title: event.target.value })
+            handleSave(index, { ...plan, name: event.target.value })
           }
         />
       ) : (
-        plan.title
+        plan.name
       )}
     </th>
     <th>
@@ -296,60 +413,71 @@ const SubComp = ({ onUpdate, onDelete, onAdd }) => {
       )}
     </th>
     <th>
-      {editIndex === index ? (
-        <Textarea
-          value={plan.features.join("\n")}
+    {editIndex === index ? (
+        <TextInput
+        // type="number"
+          value={plan.currency}
           onChange={(event) =>
-            handleSave(index, {
-              ...plan,
-              features: event.target.value.split("\n"),
-            })
+            handleSave(index, { ...plan, currency: event.target.value })
           }
         />
       ) : (
-        plan.features.join(", ")
+        plan.currency
       )}
+      
     </th>
     <th>
-      {editIndex === index ? (
-        <>
-        <br></br>
-        <br></br>
-          <Button
-            variant="light"
-            onClick={() => handleSave(index, plan)}
-            style={{ marginRight: "8px" }}
-          >
-            Save
-          </Button>
-
-          
-          <Button variant="light" onClick={handleCancel}>
-            Cancel
-          </Button>
-        </>
+    {editIndex === index ? (
+        <TextInput
+        // type="number"
+          value={plan.discount}
+          onChange={(event) =>
+            handleSave(index, { ...plan, discount: event.target.value })
+          }
+        />
       ) : (
-        <>
-          <Button
-            variant="light"
-            onClick={() => handleEdit(index)}
-            style={{ marginRight: "8px" }}
-          >
-            Edit
-          </Button>
-          <Button
-            variant="light"
-            onClick={() => handleDelete(index)}
-            style={{ marginRight: "8px" }}
-          >
-            Delete
-          </Button>
-        </>
+        plan.discount
       )}
+      
+    </th><th>
+    {editIndex === index ? (
+        <TextInput
+        // type="number"
+          value={plan.features}
+          onChange={(event) =>
+            handleSave(index, { ...plan, features: event.target.value })
+          }
+        />
+      ) : (
+        plan.features
+      )}
+      
+    </th><th>
+    {editIndex === index ? (
+        <TextInput
+        // type="number"
+          value={plan.timespan}
+          onChange={(event) =>
+            handleSave(index, { ...plan, timespan: event.target.value })
+          }
+        />
+      ) : (
+        plan.timespan
+      )}
+      
     </th>
+    <th>
+    <Button
+                      onClick={() => handleDelete(index)}
+                      
+                    >
+                      Delete
+                    </Button>
+                    </th>
   </tr>
 ))}
 </Table>
+
 
 </div>
 <div class="button-container">
@@ -358,13 +486,9 @@ const SubComp = ({ onUpdate, onDelete, onAdd }) => {
 </Button>
 <Button className="add-btn"
 onClick={()=>{
-  invoke("reader",{
-  }).then((message)=>{
-    console.log(message);
-
-    const json = JSON.parse(message);
-    console.log(json);
-    })
+     invoke("remove_sub",{
+      random:"406042",
+     });
 }}
 >  
   check
@@ -440,10 +564,16 @@ onClick={()=>{
     </div>
     <br></br>
     <div className="button-container">
-        <Button variant="light" onClick={handleClose}>
+        <Button  onClick={handleClose}>
           Close
         </Button>
-        <Button variant="light" type="submit" onClick={handleSaveNewPlan}>
+        <Button  type="submit" onClick={()=>{
+          handleSaveNewPlan();
+          setTimeout(() => {
+            handleRefresh();
+          }, 3000);
+          
+          }}>
           Save
         </Button>
       </div>

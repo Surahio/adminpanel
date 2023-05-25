@@ -107,6 +107,10 @@
         LogReg::remember_me_token, 
         Subscriptions::sub,
         Subscriptions::reader,
+        Subscriptions::x_into_db,
+        Subscriptions::showcase_sub,
+        Subscriptions::showcase_x,
+        Subscriptions::remove_sub,
       ])
       .run(tauri::generate_context!())
       .expect("error while running tauri application");

@@ -3,11 +3,12 @@ import { useState } from "react";
 import PricingPlan from "./PricingPlan.jsx";
 import Login from './Login.jsx';
 import DatasetPage from './DatasetPage.jsx';
-import Userlist from './Userlist.jsx';
+import Userlist from './userList.jsx';
 import User from './User.jsx';
 import Newuser from './Newuser.jsx';
 import Register from "./Register";
 import UserStatus from './UserStatus.jsx';
+import Subs from './Subs.jsx';
 import Home from "./Home.js";
 import {
   createStyles,
