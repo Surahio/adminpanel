@@ -105,6 +105,8 @@
         LogReg::match_vcode, 
         LogReg::match_2fa,
         LogReg::remember_me_token, 
+        LogReg::user_list,
+        LogReg::hasher,
         Subscriptions::sub,
         Subscriptions::reader,
         Subscriptions::x_into_db,

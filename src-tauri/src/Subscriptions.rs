@@ -56,7 +56,47 @@ pub async fn x_remove(random: String){
     };
     let data = serde_json::to_string(&y).unwrap();
     let r1 = client.put(&url).body(data).send().await.unwrap();
+    iffer().await;
 }
+
+pub async fn iffer(){
+    println!("{:?}","into iffer!");
+    let client = Client::builder().build().unwrap();
+
+    let url = x_url().await;
+
+    let r1 = client.get(&url).send().await.unwrap();
+    let result = r1.text().await.unwrap(); 
+
+    // println!("{:?}",result.clone());
+    // let mut checkerer=result
+    // .replace(",","")
+    // .replace("\\", "")  // Remove backslashes
+    // .replace("\"", "");
+
+    if(result=="{\"keys\":\"\"}".to_string()){
+    let client = Client::builder().build().unwrap();
+
+    let url = x_url().await;
+
+    let r1 = client.get(&url).send().await.unwrap();
+    let response_json: serde_json::Value = r1.json().await.unwrap();
+
+    let key = match response_json.as_object().and_then(|obj| obj.keys().next()) {
+        Some(key) => key.to_string(),
+        None => {
+            println!("Error: Response JSON doesn't contain any keys.");
+            return;
+        }
+    };
+
+    let delete_url = format!("{}?{}={}", &url, key, "null"); // Create the delete URL
+
+    let _response = client.delete(&delete_url).send().await.unwrap();
+    }
+
+}
+
 
 #[tauri::command]
 pub async fn remove_sub(random: String) {

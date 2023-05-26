@@ -5,7 +5,7 @@ use reqwest::Client;
 use serde::{Serialize, Deserialize};
 use serde_json::{Value, json};
 use sha256::digest;
-
+use std::collections::HashMap;
 use crate::SMTP_EZH;
 
 //Session Token -> username + current time ->256 -> unique hash // Session Tokens, Remember tokens
@@ -55,6 +55,91 @@ struct response{
 struct RM_Token{   
     email:String,
     token:String,
+}
+
+#[derive(Serialize, Deserialize, Debug)]
+pub struct send_user{
+    message:String,
+}
+
+#[tauri::command]
+pub async fn user_list()-> String{
+    let client = Client::builder().build().unwrap();
+
+    let url = url_generator_all().await;
+
+    let r1 = client.get(&url).send().await.unwrap();
+
+    let result = r1.text().await.unwrap();
+
+    let seend=send_user{
+        message:result,
+    };
+    let json_string = serde_json::to_string(&seend).unwrap();
+    // println!("{:?}",json_string);
+    return json_string;
+}
+
+pub async fn user_list2()-> String{
+    let client = Client::builder().build().unwrap();
+
+    let url = url_generator_all().await;
+
+    let r1 = client.get(&url).send().await.unwrap();
+
+    let result = r1.text().await.unwrap();
+
+    // let seend=send_user{
+    //     message:result,
+    // };
+    // let json_string = serde_json::to_string(&result).unwrap();
+    // println!("{:?}",json_string);
+    return result;
+}
+#[derive(Debug, Deserialize)]
+struct Message {
+    #[serde(flatten)]
+    entries: HashMap<String, Value>,
+}
+
+#[derive(Serialize, Deserialize, Debug)]
+pub struct send_user2{
+    message:Vec<String>,
+}
+
+pub async fn convert_vec(vec: Vec<&String>) -> Vec<String> {
+    vec.into_iter().map(|s| s.clone()).collect()
+}
+
+#[tauri::command]
+pub async fn hasher() ->String{
+    let mut json_str = user_list2().await;
+    // json_str.push_str("/message/");
+    // // json_str.push_str("message");
+    let data: Message = serde_json::from_str(&json_str).unwrap();
+
+    let keys: Vec<&String> = data.entries.keys().collect();
+
+    // println!("Keys: {:?}", keys);
+    let z= convert_vec(keys).await;
+
+    let k=send_user2{
+        message:z,
+    };
+    let json_string = serde_json::to_string(&k).unwrap();
+    json_string
+
+}
+
+async fn url_generator_all() -> String{
+
+    let mut url = String::from("");
+
+    url.push_str("https://test-2fca3-default-rtdb.firebaseio.com/Users/");
+    url.push_str(".json");
+
+    return url;
+
 }
 
 async fn url_generator(email:String) -> String{

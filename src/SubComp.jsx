@@ -220,9 +220,18 @@ const SubComp = ({ onUpdate, onDelete, onAdd }) => {
     setEditIndex(-1);
   };
 
-  const handleDelete = (index) => {
-    onDelete(index);
+  const handleDelete = (id) => {
+    console.log("Deleted plan ID:", id);
+    invoke("remove_sub",{
+      random:id,
+    }).then(()=>{
+      setTimeout(() => {
+        handleRefresh();
+      }, 3000);
+    });
+    // Perform delete operation using the plan ID
   };
+
 
   const handleAdd = () => {
     setNewPlan({ title: "", price: "", features: [] });
@@ -468,10 +477,8 @@ const SubComp = ({ onUpdate, onDelete, onAdd }) => {
     </th>
     <th>
     <Button
-                      onClick={() => handleDelete(index)}
-                      
-                    >
-                      Delete
+                      onClick={() => handleDelete(plan.id)}>Delete
+                    
                     </Button>
                     </th>
   </tr>
